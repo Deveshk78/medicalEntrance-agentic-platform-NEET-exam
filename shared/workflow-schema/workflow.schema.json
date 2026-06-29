@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MedEnt Agent Workflow",
+  "description": "Low-code/no-code drag-and-drop agent workflow schema",
+  "type": "object",
+  "required": ["name", "nodes", "edges"],
+  "properties": {
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "version": { "type": "string", "default": "1.0.0" },
+    "active": { "type": "boolean", "default": true },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "label"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "enum": ["TRIGGER", "REASON", "TOOL", "DECISION", "ACTION"] },
+          "label": { "type": "string" },
+          "config": { "type": "object" },
+          "positionX": { "type": "number" },
+          "positionY": { "type": "number" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "target"],
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "condition": { "type": "string" }
+        }
+      }
+    }
+  }
+}

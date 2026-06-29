@@ -1,0 +1,27 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; color: #e2e8f0; }
+.app { display: flex; min-height: 100vh; }
+.sidebar { width: 240px; background: #1e293b; padding: 1.5rem; border-right: 1px solid #334155; }
+.sidebar h1 { font-size: 1.25rem; color: #38bdf8; margin-bottom: 2rem; }
+.sidebar nav a { display: block; padding: 0.75rem 1rem; color: #94a3b8; text-decoration: none; border-radius: 8px; margin-bottom: 0.5rem; }
+.sidebar nav a:hover, .sidebar nav a.active { background: #334155; color: #f1f5f9; }
+.main { flex: 1; padding: 2rem; overflow-y: auto; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.header h2 { font-size: 1.75rem; }
+.badge { background: #22c55e; color: #052e16; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; }
+.stat-card .label { color: #94a3b8; font-size: 0.875rem; margin-bottom: 0.5rem; }
+.stat-card .value { font-size: 2rem; font-weight: 700; color: #38bdf8; }
+.stat-card .sub { color: #64748b; font-size: 0.75rem; margin-top: 0.25rem; }
+.table-container { background: #1e293b; border: 1px solid #334155; border-radius: 12px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #334155; }
+th { background: #0f172a; color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; }
+.status-active { color: #22c55e; }
+.status-critical { color: #ef4444; }
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+.chart-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; }
+.workflow-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1rem; margin-bottom: 0.75rem; }
+.workflow-card h4 { color: #38bdf8; margin-bottom: 0.25rem; }
+.workflow-card p { color: #94a3b8; font-size: 0.875rem; }

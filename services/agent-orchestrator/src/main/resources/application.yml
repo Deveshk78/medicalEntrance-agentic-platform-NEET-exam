@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 200
+    max-connections: 10000
+
+spring:
+  application:
+    name: medent-agent-orchestrator
+  threads:
+    virtual:
+      enabled: true
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/medent}
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:medent}
+    password: ${SPRING_RABBITMQ_PASSWORD:medent_secret}
+
+cognito:
+  jwks-url: ${COGNITO_JWKS_URL:}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.medent: INFO

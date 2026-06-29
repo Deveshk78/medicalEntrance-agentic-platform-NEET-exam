@@ -1,0 +1,150 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: medent-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: medent-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 512mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: medent-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: medent
+      RABBITMQ_DEFAULT_PASS: medent_secret
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  agent-orchestrator:
+    build:
+      context: ./services/agent-orchestrator
+      dockerfile: Dockerfile
+    container_name: medent-agent-orchestrator
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/medent
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: medent
+      SPRING_RABBITMQ_PASSWORD: medent_secret
+      COGNITO_JWKS_URL: ${COGNITO_JWKS_URL:-}
+      JWT_SECRET: ${JWT_SECRET:-dev-secret-change-in-production-min-256-bits-long-key-here}
+      JAVA_OPTS: "-XX:+UseZGC -XX:+ZGenerational -Xms512m -Xmx2g"
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 2G
+
+  analytics-api:
+    build:
+      context: ./services/analytics-api
+      dockerfile: Dockerfile
+    container_name: medent-analytics-api
+    ports:
+      - "8000:8000"
+    environment:
+      MONGO_URI: mongodb://mongo:27017/medent
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: medent
+      RABBITMQ_PASS: medent_secret
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  admin-portal:
+    build:
+      context: ./portals/admin
+      dockerfile: Dockerfile
+    container_name: medent-admin-portal
+    ports:
+      - "3001:80"
+    environment:
+      VITE_API_URL: http://localhost:8080
+      VITE_ANALYTICS_URL: http://localhost:8000
+    depends_on:
+      - agent-orchestrator
+      - analytics-api
+
+  student-portal:
+    build:
+      context: ./portals/student
+      dockerfile: Dockerfile
+    container_name: medent-student-portal
+    ports:
+      - "3002:80"
+    environment:
+      VITE_API_URL: http://localhost:8080
+    depends_on:
+      - agent-orchestrator
+
+  observability-portal:
+    build:
+      context: ./portals/observability
+      dockerfile: Dockerfile
+    container_name: medent-observability-portal
+    ports:
+      - "3003:80"
+    environment:
+      VITE_API_URL: http://localhost:8080
+      VITE_ANALYTICS_URL: http://localhost:8000
+    depends_on:
+      - agent-orchestrator
+      - analytics-api
+
+  nginx-lb:
+    image: nginx:alpine
+    container_name: medent-nginx-lb
+    ports:
+      - "80:80"
+    volumes:
+      - ./infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - agent-orchestrator
+      - analytics-api
+
+volumes:
+  mongo_data:
