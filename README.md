@@ -257,7 +257,7 @@ docker compose up -d --build
 - Operations Runbook
 
 **Project Structure**
-
+```
 medent-agent-platform/
 ├── services/
 │   ├── agent-orchestrator/    # Java 21 agent engine
@@ -273,5 +273,5 @@ medent-agent-platform/
 ├── docs/                      # Full documentation
 └── scripts/                   # Startup & utility scripts
 License
-Proprietary — MedEnt Agent Platform © 2026
-
+Intellectual Proprietary — MedEnt Agent Platform © 2026 to devesh2178@gmail.com
+```
