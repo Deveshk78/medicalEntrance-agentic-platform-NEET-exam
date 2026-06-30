@@ -9,12 +9,12 @@ This project is a product with full stack agentic AI solutions workflow which in
 ## Project Details
 What Was Built
 Core Services
-Component	Tech	Purpose
-Agent Orchestrator	Java 21, Spring Boot 3.3, DJL, RabbitMQ, MongoDB, Redis	Low-code agent workflows (reason → tool → decide → act)
-Analytics API	FastAPI, Keras/TensorFlow, MongoDB, Redis	ML predictions and multi-angle analytics
-Admin Portal	React + TypeScript	Live student monitoring, workflows, analytics
-Student Portal	React + TypeScript	NEET exam UI (Physics, Chemistry, Botany, Zoology)
-Observability Portal	React + TypeScript	Critical alerts and system health
+Component	                         Tech	                                                                Purpose
+Agent Orchestrator	         Java 21, Spring Boot 3.3, DJL, RabbitMQ, MongoDB, Redis	              Low-code agent workflows (reason → tool → decide → act)
+Analytics API	              FastAPI, Keras/TensorFlow, MongoDB, Redis	                            ML predictions and multi-angle analytics
+Admin Portal	               React + TypeScript	                                                   Live student monitoring, workflows, analytics
+Student Portal	             React + TypeScript	                                                   NEET exam UI (Physics, Chemistry, Botany, Zoology)
+Observability Portal	       React + TypeScript	                                                   Critical alerts and system health
 
 Java 21 Features Used
 •	Virtual threads for 25L concurrent exam sessions
@@ -22,13 +22,11 @@ Java 21 Features Used
 •	Sealed classes + pattern matching for agent node types
 •	Records for immutable domain models
 •	ZGC Generational for memory-safe GC at scale
-•	Deep Java Library (DJL) for on-JVM ML inference
-Security & AWS
+•	Deep Java Library (DJL) for on-JVM ML inference Security & AWS
 •	Cognito user pool with ADMIN / STUDENT / OBSERVABILITY groups (JWT + OAuth 2.0)
 •	AWS WAF — rate limiting, SQLi, OWASP rules
 •	AWS Shield Advanced on CloudFront
-•	Terraform in infrastructure/aws/main.tf
-Documentation (docs/)
+•	Terraform in infrastructure/aws/main.tf Documentation (docs/)
 •	architecture.md — system design and scaling for 25L students
 •	api-reference.md — all REST endpoints
 •	security.md — Cognito, WAF, Shield
