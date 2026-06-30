@@ -24,23 +24,23 @@ Core Services
 | OBSERVABILITY | Alert monitoring, system metrics, read-only |
 
 Java 21 Features Used
-•	Virtual threads for 25L concurrent exam sessions
-•	Structured concurrency for parallel workflow execution
-•	Sealed classes + pattern matching for agent node types
-•	Records for immutable domain models
-•	ZGC Generational for memory-safe GC at scale
-•	Deep Java Library (DJL) for on-JVM ML inference Security & AWS
-•	Cognito user pool with ADMIN / STUDENT / OBSERVABILITY groups (JWT + OAuth 2.0)
-•	AWS WAF — rate limiting, SQLi, OWASP rules
-•	AWS Shield Advanced on CloudFront
-•	Terraform in infrastructure/aws/main.tf Documentation (docs/)
-•	architecture.md — system design and scaling for 25L students
-•	api-reference.md — all REST endpoints
-•	security.md — Cognito, WAF, Shield
-•	analytics.md — Keras models and analytics dimensions
-•	deployment.md — local and AWS deployment
-•	agent-workflows.md — low-code/no-code workflow guide
-•	operations.md — runbook and incident response
+- Virtual threads for 25L concurrent exam sessions
+- Structured concurrency for parallel workflow execution
+- Sealed classes + pattern matching for agent node types
+- Records for immutable domain models
+- ZGC Generational for memory-safe GC at scale
+- Deep Java Library (DJL) for on-JVM ML inference Security & AWS
+- Cognito user pool with ADMIN / STUDENT / OBSERVABILITY groups (JWT + OAuth 2.0)
+- AWS WAF — rate limiting, SQLi, OWASP rules
+- AWS Shield Advanced on CloudFront
+- Terraform in infrastructure/aws/main.tf Documentation (docs/)
+- architecture.md — system design and scaling for 25L students
+- api-reference.md — all REST endpoints
+- security.md — Cognito, WAF, Shield
+- analytics.md — Keras models and analytics dimensions
+- deployment.md — local and AWS deployment
+- agent-workflows.md — low-code/no-code workflow guide
+- operations.md — runbook and incident response
 ________________________________________
 Run the Application
 Shell output wasn’t captured in this session, so run this locally in PowerShell:
@@ -48,19 +48,16 @@ cd "C:\Users\<username>\Projects\medent-agent-platform"
 Copy-Item .env.example .env -Force
 docker compose up -d --build
 First build may take 10–15 minutes (Java Maven + Keras/TensorFlow + 3 React portals).
+
 Service URLs
+
 Portal / Service	URL
-Admin Portal	http://localhost:3001
-
-Student Portal	http://localhost:3002
-
-Observability Portal	http://localhost:3003
-
-Agent API	http://localhost:8080
-
-Analytics API	http://localhost:8000
-
-Load Balancer	http://localhost:80
+- Admin Portal	http://localhost:3001
+- Student Portal	http://localhost:3002
+- Observability Portal	http://localhost:3003
+- Agent API	http://localhost:8080
+- Analytics API	http://localhost:8000
+- Load Balancer	http://localhost:80
 
 RabbitMQ UI	http://localhost:15672 (medent / medent_secret)
 Verify Health
