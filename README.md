@@ -9,12 +9,19 @@ This project is a product with full stack agentic AI solutions workflow which in
 ## Project Details
 What Was Built
 Core Services
-Component	                         Tech	                                                                Purpose
-Agent Orchestrator	         Java 21, Spring Boot 3.3, DJL, RabbitMQ, MongoDB, Redis	              Low-code agent workflows (reason → tool → decide → act)
-Analytics API	              FastAPI, Keras/TensorFlow, MongoDB, Redis	                            ML predictions and multi-angle analytics
-Admin Portal	               React + TypeScript	                                                   Live student monitoring, workflows, analytics
-Student Portal	             React + TypeScript	                                                   NEET exam UI (Physics, Chemistry, Botany, Zoology)
-Observability Portal	       React + TypeScript	                                                   Critical alerts and system health
+| Component | Tech | Purposes |
+|-------|------------|------------|
+| Agent Orchestrator | Java 21, Spring Boot 3.3, DJL, RabbitMQ, MongoDB, Redis | Low-code agent workflows (reason → tool → decide → act) |
+| Analytics API | FastAPI, Keras/TensorFlow, MongoDB, Redis | ML predictions and multi-angle analytics |
+| Admin Portal | React + TypeScript | Live student monitoring, workflows, analytics |
+| Student Portal | React + TypeScript | NEET exam UI (Physics, Chemistry, Botany, Zoology) |
+| Observability Portal | React + TypeScript | Critical alerts and system health |
+
+| Group | Permissions |
+|-------|------------|
+| ADMIN | Full platform access, workflow management, all analytics |
+| STUDENT | Exam portal, own session data only |
+| OBSERVABILITY | Alert monitoring, system metrics, read-only |
 
 Java 21 Features Used
 •	Virtual threads for 25L concurrent exam sessions
